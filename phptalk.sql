@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `sid` int(8) NOT NULL COMMENT '分类id',
   `title` text NOT NULL COMMENT '帖子标题',
   `content` longtext NOT NULL COMMENT '帖子内容',
+  `status` varchar(11) NOT NULL DEFAULT 'common' COMMENT '帖子状态',
   `post_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发布时间',
   `is_have_comment` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否评论',
   PRIMARY KEY (`pid`)
