@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`password` varchar(255) NOT NULL COMMENT '密码',
 	`email` varchar(255) NOT NULL COMMENT '邮箱',
 	`role` varchar(11) NOT NULL COMMENT '身份',
+  `state` varchar(11) NOT NULL DEFAULT 'normal' COMMENT '用户状态',
 	`register_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
 	`avatar` varchar(255) NOT NULL DEFAULT 'upload/avatar/avatar.png' COMMENT '头像路径',
 	PRIMARY KEY (`uid`)
@@ -42,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='评论表' AUTO_INCREMENT=1 ;
 
 
-CREATE TABLE IF NOT EXISTS `posthot` (
+CREATE TABLE IF NOT EXISTS `post_hot` (
   `phid` int(8) NOT NULL AUTO_INCREMENT COMMENT '帖子赞id',
   `pid` int(8) NOT NULL AUTO_INCREMENT COMMENT '帖子id',
   `uid` int(8) NOT NULL AUTO_INCREMENT COMMENT '用户id',
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `posthot` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='帖子点赞表' AUTO_INCREMENT=1 ;
 
 
-CREATE TABLE IF NOT EXISTS `commenthot` (
+CREATE TABLE IF NOT EXISTS `comment_hot` (
   `chid` int(8) NOT NULL AUTO_INCREMENT COMMENT '评论赞id',
   `cid` int(8) NOT NULL AUTO_INCREMENT COMMENT '评论id',
   `uid` int(8) NOT NULL AUTO_INCREMENT COMMENT '用户id',
