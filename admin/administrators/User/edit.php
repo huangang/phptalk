@@ -32,54 +32,40 @@
     </style>
 </head>
 <body>
-<form action="/DoUpdate" method="post" class="definewidth m20">
+<form action="../../../action/update.php" method="post" class="definewidth m20">
     <table class="table table-bordered table-hover definewidth m10">
         <input type="hidden" name="table" value="user" />
-        <%
-            String uid=request.getParameter("uid");
-            String username=request.getParameter("username");
-            String password=request.getParameter("password");
-            String email=request.getParameter("email");
-            String role=request.getParameter("role");
-        %>
-        <input type="hidden" name="uid" value="<%=uid%>" />
+        <?php
+        $uid = $_GET['uid'];
+        $username = $_GET['username'];
+        $email = $_GET['email'];
+        $role = $_GET['role'];
+        ?>
+        <input type="hidden" name="uid" value="<?php echo $uid; ?>" />
         <tr>
             <td width="10%" class="tableleft">用户名</td>
-            <td><input type="text" name="username" value="<%=username%>"/></td>
+            <td><input type="text" name="username" value="<?php echo $username; ?>"/></td>
         </tr>
-        <%--<tr>--%>
-            <%--<td class="tableleft">密码</td>--%>
-            <%--<td><input type="password" name="password" value="<%=password%>"/></td>--%>
-        <%--</tr>--%>
         <tr>
             <td class="tableleft">邮箱</td>
-            <td><input type="text" name="email" value="<%=email%>"/></td>
+            <td><input type="text" name="email" value="<?php echo $email; ?>"/></td>
         </tr>
         <td class="tableleft">身份</td>
         <td>
             <select name="role">
-                <%
-                    if(role.equals("subscriber")){
-                %>
-                <option value="subscriber" selected="selected">subscriber</option>
-                <option value="author">author</option>
-                <option value="manager">manager</option>
-                <%
-                    }else if(role.equals("author")){
-                %>
-                <option value="subscriber">subscriber</option>
-                <option value="author" selected="selected">author</option>
-                <option value="manager">manager</option>
-                <%
-                    }else if(role.equals("manager")){
-
-                %>
-                <option value="subscriber">subscriber</option>
-                <option value="author">author</option>
-                <option value="manager" selected="selected">manager</option>
-                <%
-                    }
-                %>
+                <?php
+                if ($role == 'manager') {
+                    ?>
+                    <option value="manager" selected="selected">manager</option>
+                    <option value="ordinary">ordinary</option>
+                <?php
+                }elseif($role == 'ordinary') {
+                    ?>
+                    <option value="manager">manager</option>
+                    <option value="ordinary" selected="selected">ordinary</option>
+                <?php
+                }
+                ?>
             </select>
         </td>
         <tr>

@@ -23,4 +23,27 @@ if(isset($_POST)){
         }
 
     }
+    elseif($_POST['table']=='user'){
+        $uid = $_POST['uid'];
+        $username = $_POST['username'];
+        $role = $_POST['role'];
+        $email = $_POST['email'];
+        $sql = "update `users` set username ='".$username."', role='".$role."', email='".$email."' where uid ='".$uid."'";
+        $result = $mysql->runSql($sql);
+        if($result){
+            echo "<script>alert('修改成功');window.location.href='../admin/administrators/User/index.php';</script>";
+        }else{
+            echo "<script>alert('修改失败');window.location.href='../admin/administrators/User/index.php';</script>";
+        }
+    }elseif($_POST['table']=='manageChangePassword'){
+        $uid = $_POST['uid'];
+        $password = md5($_POST['nowPassword']);
+        $sql = "update `users` set password='".$password."' where uid='".$uid."'";
+        $result = $mysql->runSql($sql);
+        if($result){
+            echo "<script>alert('密码修改成功');window.location.href='../admin/administrators/User/index.php';</script>";
+        }else{
+            echo "<script>alert('密码修改失败');window.location.href='../admin/administrators/User/index.php';</script>";
+        }
+    }
 }

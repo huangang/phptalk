@@ -48,84 +48,30 @@
         <th>操作</th>
     </tr>
     </thead>
-    <%
-        //一页放10个
-        int PAGESIZE = 10;
-        int pageCount;
-        int curPage = 1;
-
-        SqlOperate sqlop = new SqlOperate();
-        String sql = "select * from users order by uid desc";
-        List list = sqlop.excuteQuery(sql, null);
-        int userNum = list.size();
-
-        pageCount = (userNum%PAGESIZE==0)?(userNum/PAGESIZE):(userNum/PAGESIZE+1);
-        String tmp = request.getParameter("curPage");
-        if(tmp==null){
-            tmp="1";
-        }
-        curPage = Integer.parseInt(tmp);
-        if(curPage>=pageCount) curPage = pageCount;
-
-
-        int pageI = 0;
-        int curPageI = 0;
-        if(userNum > PAGESIZE){
-            pageI = (curPage-1) * PAGESIZE;
-            curPageI = curPage * PAGESIZE;
-        }else{
-            pageI = 0;
-            curPageI =userNum;
-        }
-        if(curPageI > userNum ){
-            curPageI = userNum;
-        }
-        for(int i=pageI;i<curPageI;i++) {
-            Object ob = list.get(i);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map = (HashMap)ob;
-            String uid=map.get("uid").toString();
-            String username=map.get("username").toString();
-            String password=map.get("password").toString();
-            String email=map.get("email").toString();
-            String role=map.get("role").toString();
-            String register_time=map.get("register_time").toString();
-
-            out.print("<tr>");
-            out.print("<td>"+uid+"</td>");
-            out.print("<td>"+username+"</td>");
-            out.print("<td>"+email+"</td>");
-            out.print("<td>"+role+"</td>");
-            out.print("<td>" + register_time.substring(0, register_time.length() - 2) + "</td>");
-            out.print("<td>"+"<a href='edit.jsp?uid="+uid+"&username="+username+"&password="+password+"&email="+email+"&role="+role+"'>编辑</a> <a href=\"changePassword.jsp?uid="+uid+"\">修改密码</a> <a href='#' onclick='del("+uid+")'>删除</a>"+"</td>");
-            out.print("</tr>");
-
-
-        }
-    %>
+    <?php
+    require_once("../../../class/saemysql.class.php");
+    $mysql = new SaeMysql();
+    $sql = 'select *from users';
+    $result = $mysql->getData($sql);
+    for($i = 0 ;$i<count($result,0);$i++){
+        $uid = $result[$i]['uid'];
+        $username = $result[$i]['username'];
+        $email = $result[$i]['email'];
+        $register_time = $result[$i]['register_time'];
+        $role = $result[$i]['role'];
+        echo "<tr>";
+        echo "<td>".$uid."</td>";
+        echo "<td>".$username."</td>";
+        echo "<td>".$email."</td>";
+        echo "<td>".$role."</td>";
+        echo "<td>".$register_time."</td>";
+        echo "<td><a href='edit.php?uid=".$uid."&username=".$username."&email=".$email."&role=".$role."'>编辑</a> <a href=\"changePassword.php?uid=".$uid."\">修改密码</a><a href='#' onclick='del(".$uid.")'> 删除</a></td>";
+        echo "</tr>";
+    }
+    ?>
 </table>
 <div class="inline pull-right page">
-    <%=userNum %> 条记录
-    <a href = "index.php?curPage=1" >首页</a>
-    <%
-        if(curPage==1){
-    %>
-    <%
-    }else{
-    %>
-    <a href = "index.php?curPage=<%=curPage-1%>" >上一页</a>
-    <%
-        }
-        if(curPage == pageCount){
-
-        }else{
-    %>
-    <a href = "index.php?curPage=<%=curPage+1%>" >下一页</a>
-    <%
-        }
-    %>
-    <a href = "index.php?curPage=<%=pageCount%>" >尾页</a>
-    第<%=curPage%>页/共<%=pageCount%>页
+    <?php echo count($result,0); ?> 条记录
 </div>
 </body>
 </html>
@@ -161,7 +107,7 @@
         if(confirm("确定要删除吗？该用户的所有文章及内容都会删除"))
         {
 
-            xmlhttp.open("GET","/DoDelete?table=user&uid="+id,true);
+            xmlhttp.open("GET","../../../action/delete.php?table=user&uid="+id,true);
             xmlhttp.onreadystatechange=function(){
                 if (xmlhttp.readyState==4)
                 //xmlhttp.status==404 代表 没有发现该文件

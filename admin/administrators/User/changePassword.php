@@ -32,13 +32,13 @@
   </style>
 </head>
 <body>
-<form action="/DoUpdate" method="post" class="definewidth m20">
+<form action="../../../action/update.php" method="post" class="definewidth m20">
   <table class="table table-bordered table-hover definewidth m10">
     <input type="hidden" name="table" value="manageChangePassword" />
-    <%
-      String uid=request.getParameter("uid");
-    %>
-    <input type="hidden" name="uid" value="<%=uid%>" />
+      <?php
+      $uid = $_GET['uid'];
+      ?>
+    <input type="hidden" name="uid" value="<?php echo $uid; ?>" />
     <tr>
     <td class="tableleft">新密码</td>
     <td><input type="password" name="nowPassword" value=""/></td>

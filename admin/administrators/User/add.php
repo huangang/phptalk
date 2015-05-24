@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +32,7 @@
     </style>
 </head>
 <body>
-<form action="/DoAdd" method="post" class="definewidth m20">
+<form action="../../../action/add.php" method="post" class="definewidth m20">
 <table class="table table-bordered table-hover definewidth m10">
     <input type="hidden" name="table" value="user"/>
     <tr>
@@ -52,9 +51,8 @@
         <td class="tableleft">身份</td>
         <td>
             <select name="role">
-                <option value="subscriber" selected="selected">subscriber</option>
-                <option value="author">author</option>
                 <option value="manager">manager</option>
+                <option value="ordinary" selected="selected">ordinary</option>
             </select>
         </td>
     </tr>
