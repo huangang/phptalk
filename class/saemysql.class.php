@@ -45,20 +45,24 @@ class SaeMysql
 	 * @param bool $do_replication 是否支持主从分离，true:支持，false:不支持，默认为true 
 	 * @return void
 	 * @author EasyChen
-	 */ 
+	 */
+    const PORT = '3306';
+    const HOSTNAME = 'localhost';
+    const USERNAME = 'root';
+    const PASSWORD = 'root';
+    const DATABASE = 'phptalk';
+    const CHARSET = 'UTF8';
 
 	function __construct( $do_replication = true )
 	{
-        require_once("config.db.php");
-        /** @var TYPE_NAME $db_config */
-        $this->port = $db_config["port"];//端口
-		$this->host = $db_config["hostname"];//主机
-		$this->username = $db_config["username"] ;//用户
-		$this->password = $db_config["password"] ;//密码
-        $this->dbname = $db_config["database"];//数据库名
+        $this->port = self::PORT;//端口
+		$this->host = self::HOSTNAME;//主机
+		$this->username = self::USERNAME ;//用户
+		$this->password = self::PASSWORD ;//密码
+        $this->dbname = self::DATABASE;//数据库名
 
 		//set default charset as utf8
-		$this->charset = $db_config["charset"];
+		$this->charset = self::CHARSET;
 
 		$this->do_replication = $do_replication;
 	}
@@ -75,10 +79,8 @@ class SaeMysql
 	 */
 	public function setPort( $port )
 	{
-        require_once("config.db.php");
-        /** @var TYPE_NAME $db_config */
 		$this->port = $port;
-		$this->host = $db_config["hostname"];
+		$this->host = self::HOSTNAME;
 
 	}
 	

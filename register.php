@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Created by PhpStorm.
  * User: huangang
@@ -8,8 +9,9 @@
 ?>
 <html>
 <head>
+    <link rel="shortcut icon" href="images/favicon.png" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <title>注册</title>
 </head>
@@ -63,7 +65,7 @@
 <body>
 
 <div class="container">
-    <form class="form-signin" role="form" method="post" action="DoRegister">
+    <form class="form-signin" role="form" method="post" action="">
         <h2 class="form-signin-heading">注册</h2>
         <div class="input-group">
             <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
@@ -86,7 +88,7 @@
         </div>
 
         <div class="input-group">
-            <div class="input-group-addon"><img src="captcha.jsp" onclick="javascript:this.src = 'captcha.php?time=' + Math.random();"></div>
+            <div class="input-group-addon"><img src="captcha.php" onclick="javascript:this.src = 'captcha.php?time=' + Math.random();" style="height: 60%;"></div>
             <input type="text" class="form-control" placeholder="验证码" required name="code">
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
@@ -96,6 +98,40 @@
     </form>
 
 </div>
+<?php
+if(isset($_POST)&& $_POST != null) {
+    $code = strtolower($_POST['code']);
+    if ($code == $_SESSION['authnum_session']) {
+        $password = $_POST['password'];
+        $repassword = $_POST['repassword'];
+        if($password == $repassword) {
+            $email = $_POST['email'];
+            require_once("class/saemysql.class.php");
+            $mysql = new SaeMysql();
+            $sql = "SELECT * FROM `users` WHERE email='$email' ";
+            if($mysql->getData($sql)){
+                echo '<script>alert("邮箱已存在");window.location.href="register.php";</script>';
+            }else {
+                $username = $_POST['username'];
+                $password = md5($password);
+                $sql = "INSERT INTO `users`(username,password,email,role) values('$username', '$password','$email','ordinary')";
+                $result = $mysql->runSql($sql);
+                if ($result) {
+                    echo '<script>alert("注册成功,请登陆");window.location.href="login.php";</script>';
+                } else {
+                    echo '<script>alert("注册失败");window.location.href="register.php";</script>';
+                }
+            }
+        }else{
+            echo '<script>alert("2次密码不一致");window.location.href="register.php";</script>';
+        }
+
+    }else{
+        echo '<script>alert("验证码错误");window.location.href="register.php";</script>';
+    }
+}
+
+?>
 
 </body>
 </html>

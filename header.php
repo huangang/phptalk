@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Created by PhpStorm.
  * User: huangang
@@ -16,7 +17,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Knowledge Base Theme</title>
+    <title>Knowledge</title>
 
     <link rel="shortcut icon" href="images/favicon.png" />
 
@@ -58,27 +59,28 @@
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li class="current-menu-item"><a href="#">Home</a></li>
-                        <li><a href="#">Home 2</a></li>
-                        <li><a href="#">Home 3</a></li>
-                        <li><a href="#">Articles List</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Skins</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Blue Skin</a></li>
-                                <li><a href="#">Green Skin</a></li>
-                                <li><a href="#">Red Skin</a></li>
-                                <li><a href="#">Default Skin</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">More</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Full Width</a></li>
-                                <li><a href="#">Elements</a></li>
-                                <li><a href="#">Sample Page</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Contact</a></li>
+                        <li class="current-menu-item"><a href="index.php">Home</a></li>
+                        <?php
+                        if(isset($_SESSION['uid']) && $_SESSION['uid'] != null){
+                            ?>
+                            <li><a href="admin">Admin</a></li>
+                            <li><a href="exit.php">EXit</a></li>
+                        <?php
+                        }else {
+                            ?>
+                            <li><a href="login.php">Login</a></li>
+                            <li><a href="register.php">Register</a></li>
+                        <?php
+                        }
+                        ?>
+<!--                        <li><a href="#">More</a>-->
+<!--                            <ul class="sub-menu">-->
+<!--                                <li><a href="#">Full Width</a></li>-->
+<!--                                <li><a href="#">Elements</a></li>-->
+<!--                                <li><a href="#">Sample Page</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                        <li><a href="#">Contact</a></li>-->
                     </ul>
                 </div>
             </nav>

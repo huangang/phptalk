@@ -25,7 +25,7 @@ jQuery(document).ready(function(e) {
     /*-----------------------------------------------------------------------------------*/
     /* CSS Fixes
     /*-----------------------------------------------------------------------------------*/
-    //$(".flickr-photos > a:nth-child(3n+3) img").css("marginLeft","0px");
+    //$(".flickr-photos > a:nth-child(3n+3) img").Css("marginLeft","0px");
 
 
 
