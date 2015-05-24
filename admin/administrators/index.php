@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['uid'] == null && $_SESSION['role'] !== 'manager'){
+    echo '<script>window.location.href="/index.php";</script>';
+}
 ?>
 <!DOCTYPE HTML>
 <html>

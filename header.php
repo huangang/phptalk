@@ -7,7 +7,7 @@ session_start();
  * Time: 下午2:06
  */
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="zh-CN"> <![endif]-->
 <!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="zh-CN"> <![endif]-->
 <!--[if IE 8]>    <html class="lt-ie9" lang="zh-CN"> <![endif]-->

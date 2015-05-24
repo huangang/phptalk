@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/style.css" />
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script type="text/javascript" src="../../js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="../../jJs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.js"></script>
     <script type="text/javascript" src="../../js/ckform.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <style type="text/css">
@@ -31,7 +31,7 @@
 
     </style>
 </head>
-<form action="/DoAdd"  method="post">
+<form action="../../../action/add.php"  method="post">
 <table class="table table-bordered table-hover definewidth m10">
     <input type="hidden" name="table" value="post"/>
     <tr>
@@ -42,35 +42,27 @@
         <td class="tableleft">分类</td>
         <td>
         <select name="sid">
-            <%
-                SqlOperate sqlop = new SqlOperate();
-                String sql = "select * from sorts";
-                List list = sqlop.excuteQuery(sql, null);
-                int sortNum = list.size();
-                for(int i=0;i<sortNum;i++){
-                    Object ob = list.get(i);
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map = (HashMap)ob;
-                    String sid=map.get("sid").toString();
-                    String sname =map.get("sname").toString();
-                    out.print("<option value="+sid+">");
-                    out.print(sname);
-                    out.print("</option>");
-
-                }
-            %>
+        <?php
+        require_once("../../../class/saemysql.class.php");
+        $mysql = new SaeMysql();
+        $sql = 'select * from sorts';
+        $all_sort = $mysql->getData($sql);
+        for($i = 0; $i < count($all_sort); $i++){
+            echo "<option value=".$all_sort[$i]['sid'].">";
+            echo $all_sort[$i]['sname'];
+            echo "</option>";
+        }
+        ?>
         </select>
         </td>
 
     </tr>
     <tr>
-        <script type="text/javascript" charset="utf-8" src="../../ueditor/ueditor.config.js"></script>
-        <script type="text/javascript" charset="utf-8" src="../../ueditor/ueditor.all.min.js"> </script>
-        <script type="text/javascript" charset="utf-8" src="../../ueditor/lang/zh-cn/zh-cn.js"></script>
+        <script type="text/javascript" charset="utf-8" src="../../../ueditor/ueditor.config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="../../../ueditor/ueditor.all.min.js"> </script>
+        <script type="text/javascript" charset="utf-8" src="../../../ueditor/lang/zh-cn/zh-cn.js"></script>
         <td class="tableleft">正文</td>
         <td>
-            <%--<textarea name="content" rows="10" cols="20">--%>
-            <%--</textarea>--%>
             <script id="editor" type="text/plain" style="width:1024px;height:500px;" name="content" ></script>
                 <script type="text/javascript">
                     var ue = UE.getEditor('editor');

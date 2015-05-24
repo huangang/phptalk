@@ -1,3 +1,6 @@
+<?php
+//error_reporting( E_ALL&~E_NOTICE );
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/style.css" />
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script type="text/javascript" src="../../js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="../../jJs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.js"></script>
     <script type="text/javascript" src="../../js/ckform.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <style type="text/css">
@@ -35,7 +38,7 @@
 <form class="form-inline definewidth m20" action="index.php" method="get">
     文章名：
     <input type="text" name="rolename" id="rolename"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;  
-    <button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增文章</button>
+    <button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增帖子</button>
 </form>
 <table class="table table-bordered table-hover definewidth m10" >
     <thead>
@@ -47,84 +50,30 @@
         <th>管理操作</th>
     </tr>
     </thead>
-    <%
-
-        //一页放10个
-        int PAGESIZE = 10;
-        int pageCount;
-        int curPage = 1;
-
-        SqlOperate sqlop = new SqlOperate();
-        String sql = "select *from posts order by pid desc";
-        List list = sqlop.excuteQuery(sql, null);
-        int postNum = list.size();
-
-        pageCount = (postNum%PAGESIZE==0)?(postNum/PAGESIZE):(postNum/PAGESIZE+1);
-        String tmp = request.getParameter("curPage");
-        if(tmp==null){
-            tmp="1";
-        }
-        curPage = Integer.parseInt(tmp);
-        if(curPage>=pageCount) curPage = pageCount;
-
-        int pageI = 0;
-        int curPageI = 0;
-        if(postNum > PAGESIZE){
-            pageI = (curPage-1) * PAGESIZE;
-            curPageI = curPage * PAGESIZE;
-        }else{
-            pageI = 0;
-            curPageI = postNum;
-        }
-        if(curPageI > postNum ){
-            curPageI = postNum;
-        }
-        for(int i=pageI;i<curPageI;i++) {
-            Object ob = list.get(i);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map = (HashMap)ob;
-            String pid =map.get("pid").toString();
-            String uid=map.get("uid").toString();
-            sql = "select username from users where uid='"+uid+"'";
-            String username=sqlop.executeQuerySingle(sql, null).toString();
-
-            String sid=map.get("sid").toString();
-            sql = "select sname from sorts where sid='"+sid+"'";
-            String sname=sqlop.executeQuerySingle(sql, null).toString();
-
-            out.print("<tr>");
-            out.print("<td>"+map.get("title")+"</td>");
-            out.print("<td>"+username+"</td>");
-            out.print("<td>"+sname+"</td>");
-            String post_time = map.get("post_time").toString();
-            out.print("<td>" + post_time.substring(0, post_time.length() - 2) + "</td>");
-            out.print("<td>"+"<a href='edit.jsp?pid="+pid+"&sid="+sid+"'>编辑</a> <a href='#' onclick='del("+map.get("pid")+")'>删除</a>"+"</td>");
-            out.print("</tr>");
-        }
-    %>
+    <?php
+    require_once("../../../class/saemysql.class.php");
+    $mysql = new SaeMysql();
+    $sql = 'select *from posts';
+    $result = $mysql->getData($sql);
+    for($i = 0 ;$i<count($result,0);$i++){
+        $uid = $result[$i]["uid"];
+        $sql = 'select username from users WHERE uid='.$uid;
+        $username = $mysql->getVar($sql);
+        $sid = $result[$i]["sid"];
+        $sql = 'SELECT sname from sorts WHERE sid='.$sid;
+        $sname = $mysql->getVar($sql);
+        echo "<tr>";
+        echo "<td>".$result[$i]["title"]."</td>";
+        echo "<td>".$username."</td>";
+        echo "<td>".$sname."</td>";
+        echo "<td>".$result[$i]["post_time"]."</td>";
+        echo "<td><a href='edit.php?pid=".$result[$i]["pid"]."&sid=".$sid."&title=".$result[$i]["title"]."'>编辑</a> <a href='#' onclick='del(".$result[$i]["pid"].")'>删除</a></td>";
+        echo "</tr>";
+    }
+    ?>
 </table>
 <div class="inline pull-right page">
-    <%=postNum%> 条记录
-    <a href = "index.php?curPage=1" >首页</a>
-    <%
-        if(curPage==1){
-    %>
-    <%
-    }else{
-    %>
-    <a href = "index.php?curPage=<%=curPage-1%>" >上一页</a>
-    <%
-        }
-        if(curPage == pageCount){
-
-        }else{
-    %>
-    <a href = "index.php?curPage=<%=curPage+1%>" >下一页</a>
-    <%
-        }
-    %>
-    <a href = "index.php?curPage=<%=pageCount%>" >尾页</a>
-    第<%=curPage%>页/共<%=pageCount%>页
+    <?php echo count($result); ?> 条记录
 </div>
 </body>
 </html>
@@ -159,7 +108,7 @@
         if(confirm("确定要删除吗？"))
         {
 
-            xmlhttp.open("GET","/DoDelete?table=post&pid="+id,true);
+            xmlhttp.open("GET","../../../action/delete.php?table=post&pid="+id,true);
             xmlhttp.onreadystatechange=function(){
                 if (xmlhttp.readyState==4)
                 //xmlhttp.status==404 代表 没有发现该文件
