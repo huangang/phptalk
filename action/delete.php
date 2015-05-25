@@ -32,6 +32,13 @@ if(isset($_GET)) {
         }
     }elseif($_GET['table'] == 'sort'){
         $sid = $_GET['sid'];
+        $sql3 = "select pid from posts WHERE sid=".$sid;
+        $result3 = $mysql->getData($sql3);
+        for ($i = 0; $i<count($result3); $i++){
+            $pid = $result3[$i]['pid'];
+            $sql4 = "delete from comments where pid =".$pid;
+            $mysql->runSql($sql4);
+        }
         $sql = "delete from sorts where sid =".$sid;
         $sql2 = "delete from posts where sid =".$sid;
         $result = $mysql->runSql($sql);
@@ -42,5 +49,14 @@ if(isset($_GET)) {
             echo "<script>alert('删除失败');window.location.href='../admin/administrators/Sort/index.php';</script>";
         }
 
+    }elseif($_GET['table'] == 'comment'){
+        $cid = $_GET['cid'];
+        $sql = "delete from comments where cid =".$cid;
+        $result = $mysql->runSql($sql);
+        if($result){
+            echo "<script>alert('删除成功');window.location.href='../admin/administrators/Comment/index.php';</script>";
+        }else{
+            echo "<script>alert('删除失败');window.location.href='../admin/administrators/Comment/index.php';</script>";
+        }
     }
 }

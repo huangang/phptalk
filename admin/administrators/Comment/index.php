@@ -49,85 +49,36 @@
         <th>管理操作</th>
     </tr>
     </thead>
-    <%
-        //一页放10个
-        int PAGESIZE = 10;
-        int pageCount;
-        int curPage = 1;
+   <?php
+   require_once("../../../class/saemysql.class.php");
+   $mysql = new SaeMysql();
+   $sql = 'select *from comments';
+   $result = $mysql->getData($sql);
+   for($i = 0 ;$i<count($result,0);$i++){
+       $cid = $result[$i]['cid'];
+       $pid = $result[$i]['pid'];
+       $sql = "select title from posts where pid='".$pid."'";
+       $title = $mysql->getVar($sql);
+       $uid = $result[$i]['uid'];
+       $sql = "select username from users where uid='".$uid."'";
+       $username = $mysql->getVar($sql);
+       $content = $result[$i]['content'];
+       $comment_time = $result[$i]['comment_time'];
+       echo "<tr>";
+       echo "<td>".$cid."</td>";
+       echo "<td>".$content."</td>";
+       echo "<td>".$username."</td>";
+       echo "<td>".$title."</td>";
+       echo "<td>".$comment_time."</td>";
+       echo "<td><a onclick='del(".$cid.")'>删除</a></td>";
+       echo "</tr>";
 
-        SqlOperate sqlop = new SqlOperate();
-        String sql = "select * from comments order by cid desc";
-        List list = sqlop.excuteQuery(sql, null);
-        int commentNum = list.size();
+   }
 
-        pageCount = (commentNum%PAGESIZE==0)?(commentNum/PAGESIZE):(commentNum/PAGESIZE+1);
-        String tmp = request.getParameter("curPage");
-        if(tmp==null){
-            tmp="1";
-        }
-        curPage = Integer.parseInt(tmp);
-        if(curPage>=pageCount) curPage = pageCount;
-
-        int pageI = 0;
-        int curPageI = 0;
-        if(commentNum > PAGESIZE){
-            pageI = (curPage-1) * PAGESIZE;
-            curPageI = curPage * PAGESIZE;
-        }else{
-            pageI = 0;
-            curPageI = commentNum;
-        }
-        if(curPageI > commentNum ){
-            curPageI = commentNum;
-        }
-        for(int i=pageI;i<curPageI;i++) {
-            Object ob = list.get(i);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map = (HashMap)ob;
-            String cid=map.get("cid").toString();
-            String pid=map.get("pid").toString();
-            sql = "select title from posts where pid='"+pid+"'";
-            String title = sqlop.executeQuerySingle(sql,null).toString();
-            String uid=map.get("uid").toString();
-            sql = "select username from users where uid='"+uid+"'";
-            String username = sqlop.executeQuerySingle(sql, null).toString();
-            String content=map.get("content").toString();
-            String comment_time=map.get("comment_time").toString();
-
-            out.print("<tr>");
-            out.print("<td>"+cid+"</td>");
-            out.print("<td>"+content+"</td>");
-            out.print("<td>"+username+"</td>");
-            out.print("<td>"+title+"</td>");
-            out.print("<td>"+comment_time.substring(0,comment_time.length()-2)+"</td>");
-            out.print("<td>"+"<a onclick='del("+cid+")'>删除</a></td>");
-            out.print("</tr>");
-        }
-    %>
-
+   ?>
 </table>
 <div class="inline pull-right page">
-    <%=commentNum%> 条记录
-    <a href = "index.php?curPage=1" >首页</a>
-    <%
-        if(curPage==1){
-    %>
-    <%
-    }else{
-    %>
-    <a href = "index.php?curPage=<%=curPage-1%>" >上一页</a>
-    <%
-        }
-        if(curPage == pageCount){
-
-        }else{
-    %>
-    <a href = "index.php?curPage=<%=curPage+1%>" >下一页</a>
-    <%
-        }
-    %>
-    <a href = "index.php?curPage=<%=pageCount%>" >尾页</a>
-    第<%=curPage%>页/共<%=pageCount%>页
+    <?php echo count($result); ?> 条记录
 </div>
 </body>
 </html>
@@ -152,7 +103,7 @@
         if(confirm("确定要删除吗？"))
         {
 
-            xmlhttp.open("GET","/DoDelete?table=comment&cid="+id,true);
+            xmlhttp.open("GET","../../../action/delete.php?table=comment&cid="+id,true);
             xmlhttp.onreadystatechange=function(){
                 if (xmlhttp.readyState==4)
                 //xmlhttp.status==404 代表 没有发现该文件
