@@ -48,7 +48,7 @@ session_start();
 
             <div class="logo-container">
                 <!-- Website Logo -->
-                <a href="index-2.html"  title="Knowledge Base Theme">
+                <a href="index.php"  title="Knowledge Base Theme">
                     <img src="images/logo.png" alt="Knowledge Base Theme">
                 </a>
                 <span class="tag-line">Premium WordPress Theme</span>
