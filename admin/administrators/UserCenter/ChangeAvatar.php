@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,26 +35,28 @@
   </style>
 </head>
 <body>
-<form action="/DoUpdateAvatar" method="post" class="definewidth m20" enctype="multipart/form-data" >
+<form action="../../../updateavatar.php" method="post" class="definewidth m20" enctype="multipart/form-data" >
   <table class="table table-bordered table-hover definewidth m10">
-    <%
-      String uid=session.getAttribute("uid").toString();
-      String sql = "select avatar from users where uid = '"+uid+"'";
-      SqlOperate sqlop = new SqlOperate();
-      String avatar = sqlop.executeQuerySingle(sql,null).toString();
-
-    %>
+      <?php
+      require_once("../../../class/saemysql.class.php");
+      $mysql = new SaeMysql();
+      $uid = $_SESSION['uid'];
+      $sql = "select avatar from users where uid = '".$uid."'";
+      $avatar = $mysql->getVar($sql);
+      $url='http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER["SERVER_PORT"]."/".$avatar;
+      ?>
     <tr>
       <td class="tableleft">头像</td>
       <td>
-        <img src="<%=basePath+avatar%>" width="70" height="70"><br>
-        <input type="file" name="avatar" value="<%=avatar%>" accept="image/jpg" />
+        <img src="<?php echo $url; ?>" width="70" height="70"><br>
+        <input type="file" name="avatar" value="<?php echo $avatar; ?>" accept="image/jpg" />
       </td>
     </tr>
+      <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
     <tr>
       <td class="tableleft"></td>
       <td>
-        <button type="submit" class="btn btn-primary" type="button">保存</button>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary" type="button" value="upload" >保存</button>&nbsp;&nbsp;
         <button type="button" class="btn btn-success" name="backid" id="backid">返回</button>
       </td>
     </tr>

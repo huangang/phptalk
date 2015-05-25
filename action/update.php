@@ -55,6 +55,16 @@ if(isset($_POST)){
         }else{
             echo "<script>alert('修改失败');window.location.href='../admin/administrators/Sort/index.php';</script>";
         }
-
+    }elseif($_POST['table']=='changePassword'){
+        $uid = $_POST['uid'];
+        $password = md5($_POST['password']);
+        $nowPassword = md5($_POST['nowPassword']);
+        $sql = "update users set password='".$nowPassword."' where uid='".$uid."' and password='".$password."'";
+        $result = $mysql->runSql($sql);
+        if($result){
+            echo "<script>alert('密码修改成功');window.location.href='../admin/administrators/UserCenter/index.php';</script>";
+        }else{
+            echo "<script>alert('密码修改失败');window.location.href='../admin/administrators/UserCenter/index.php';</script>";
+        }
     }
 }

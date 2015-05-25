@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 <head>
   <title></title>
@@ -31,45 +34,42 @@
   </style>
 </head>
 <body>
-<%
-  SqlOperate sqlop = new SqlOperate();
-  String uid = session.getAttribute("uid").toString();
-  String sql = "select *from users where uid = '"+uid+"'";
-  List list = sqlop.excuteQuery(sql, null);
-  Object ob = list.get(0);
-  Map<String, Object> map = new HashMap<String, Object>();
-  map = (HashMap)ob;
-  String username=map.get("username").toString();
-  String email=map.get("email").toString();
-  String role=map.get("role").toString();
-  String register_time=map.get("register_time").toString();
-  String avatar=map.get("avatar").toString();
-  String path = request.getContextPath();
-  String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<?php
+require_once("../../../class/saemysql.class.php");
+$mysql = new SaeMysql();
+$uid = $_SESSION['uid'];
+$sql = "select *from users where uid = '".$uid."'";
+$result = $mysql->getLine($sql);
+$username = $result["username"];
+$email = $result["email"];
+$role = $result["role"];
+$register_time = $result["register_time"];
+$avatar = $result["avatar"];
+$url='http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER["SERVER_PORT"]."/".$avatar;
+?>
 <form class="form-inline definewidth m20" action="/DoUpdate" method="post" >
 <table class="table table-bordered table-hover definewidth m10" >
   <input type="hidden" name="table" value="usercenter" />
   <tr>
     <td class="tableleft">用户名</td>
-    <td><input type="text" name="username" value="<%=username%>"/></td>
+    <td><input type="text" name="username" value="<?php echo $username; ?>"/></td>
   </tr>
   <tr>
     <td class="tableleft">邮箱</td>
-    <td><input type="text" name="email" value="<%=email%>"/></td>
+    <td><input type="text" name="email" value="<?php echo $email; ?>"/></td>
   </tr>
   <tr>
     <td class="tableleft">身份</td>
-    <td><input type="text" name="role" value="<%=role%>" disabled="true" /></td>
+    <td><input type="text" name="role" value="<?php echo $role; ?>" disabled="true" /></td>
   </tr>
   <tr>
     <td class="tableleft">注册时间</td>
-    <td><input type="text" name="register_time" value="<%=register_time.substring(0,register_time.length()-2)%>" disabled="true"/></td>
+    <td><input type="text" name="register_time" value="<?php echo $register_time; ?>" disabled="true"/></td>
   </tr>
   <tr>
     <td class="tableleft">头像</td>
     <td>
-      <img src="<%=basePath+avatar%>" width="70" height="70"><br>
+      <img src="<?php echo $url; ?>" width="70" height="70"><br>
     </td>
   </tr>
   <tr>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,13 +35,13 @@
   </style>
 </head>
 <body>
-<form action="/DoUpdate" method="post" class="definewidth m20">
+<form action="../../../action/update.php" method="post" class="definewidth m20">
   <table class="table table-bordered table-hover definewidth m10">
     <input type="hidden" name="table" value="changePassword" />
-    <%
-      String uid=session.getAttribute("uid").toString();
-    %>
-    <input type="hidden" name="uid" value="<%=uid%>" />
+      <?php
+      $uid = $_SESSION['uid'];
+      ?>
+    <input type="hidden" name="uid" value="<?php echo $uid; ?>" />
     <tr>
       <td class="tableleft">旧密码</td>
       <td><input type="password" name="password" value=""/></td>
