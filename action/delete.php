@@ -30,5 +30,17 @@ if(isset($_GET)) {
         }else{
             echo "<script>alert('删除失败');window.location.href='../admin/administrators/User/index.php';</script>";
         }
+    }elseif($_GET['table'] == 'sort'){
+        $sid = $_GET['sid'];
+        $sql = "delete from sorts where sid =".$sid;
+        $sql2 = "delete from posts where sid =".$sid;
+        $result = $mysql->runSql($sql);
+        $result2 = $mysql->runSql($sql2);
+        if($result){
+            echo "<script>alert('删除成功');window.location.href='../admin/administrators/Sort/index.php';</script>";
+        }else{
+            echo "<script>alert('删除失败');window.location.href='../admin/administrators/Sort/index.php';</script>";
+        }
+
     }
 }

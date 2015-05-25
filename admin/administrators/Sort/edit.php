@@ -1,5 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.jspcms.SqlOperate" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,20 +32,18 @@
     </style>
 </head>
 <body>
-<form action="/DoUpdate" method="post" class="definewidth m20">
+<form action="../../../action/update.php" method="post" class="definewidth m20">
 <input type="hidden" name="table" value="sort" />
 
 <table class="table table-bordered table-hover ">
-    <%
-        String sid=request.getParameter("sid");
-        SqlOperate sqlop = new SqlOperate();
-        String sql = "select sname from sorts where sid="+sid;
-        String sname = sqlop.executeQuerySingle(sql,null).toString();
-    %>
-    <input type="hidden" name="sid" value="<%=sid%>" />
+    <?php
+    $sid = $_GET['sid'];
+    $sname = $_GET['sname'];
+    ?>
+    <input type="hidden" name="sid" value="<?php echo $sid; ?>" />
     <tr>
         <td width="10%" class="tableleft">分类名</td>
-        <td><input type="text" name="sname" value="<%=sname%>"/></td>
+        <td><input type="text" name="sname" value="<?php echo $sname; ?>"/></td>
     </tr>
     <tr>
         <td class="tableleft"></td>

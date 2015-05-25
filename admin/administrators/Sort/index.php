@@ -1,8 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.jspcms.SqlOperate" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,79 +46,28 @@
         <th>管理操作</th>
     </tr>
     </thead>
-    <%
-        //一页放10个
-        int PAGESIZE = 10;
-        int pageCount;
-        int curPage = 1;
+    <?php
+    require_once("../../../class/saemysql.class.php");
+    $mysql = new SaeMysql();
+    $sql = 'select *from sorts';
+    $result = $mysql->getData($sql);
+    for($i = 0 ;$i<count($result,0);$i++){
+        $sid = $result[$i]['sid'];
+        $sname = $result[$i]['sname'];
+        $sql = "select count(*) from posts where sid=".$sid;
+        $postNum = $mysql->getVar($sql);
+        echo "<tr>";
+        echo "<td>".$sid."</td>";
+        echo "<td>".$sname."</td>";
+        echo "<td>".$postNum."</td>";
+        echo "<td><a href='edit.php?sid=".$sid."&sname=".$sname."'>编辑</a> <a href='#' onclick='del(".$sid.")'>删除</a></td>";
+        echo "</tr>";
+    }
 
-        SqlOperate sqlop = new SqlOperate();
-        String sql = "select * from sorts order by sid desc";
-        List list = sqlop.excuteQuery(sql, null);
-        int sortNum = list.size();
-
-        pageCount = (sortNum%PAGESIZE==0)?(sortNum/PAGESIZE):(sortNum/PAGESIZE+1);
-        String tmp = request.getParameter("curPage");
-        if(tmp==null){
-            tmp="1";
-        }
-        curPage = Integer.parseInt(tmp);
-        if(curPage>=pageCount) curPage = pageCount;
-
-
-        int pageI = 0;
-        int curPageI = 0;
-        if(sortNum > PAGESIZE){
-            pageI = (curPage-1) * PAGESIZE;
-            curPageI = curPage * PAGESIZE;
-        }else{
-            pageI = 0;
-            curPageI = sortNum;
-        }
-        if(curPageI > sortNum ){
-            curPageI = sortNum;
-        }
-        for(int i=pageI;i<curPageI;i++) {
-            Object ob = list.get(i);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map = (HashMap)ob;
-            String sid=map.get("sid").toString();
-            String sname =map.get("sname").toString();
-            sql= "select count(*) from posts where sid="+sid;
-            String postnum=sqlop.executeQuerySingle(sql, null).toString();
-            out.print("<tr>");
-            out.print("<td>"+sid+"</td>");
-            out.print("<td>"+sname+"</td>");
-            out.print("<td>"+postnum+"</td>");
-            out.print("<td>"+"<a href='edit.jsp?sid="+sid+"'>编辑</a> <a href='#' onclick='del("+map.get("sid")+")'>删除</a>"+"</td>");
-            out.print("</tr>");
-
-        }
-
-    %>
+    ?>
 </table>
 <div class="inline pull-right page">
-    <%=sortNum %> 条记录
-    <a href = "index.php?curPage=1" >首页</a>
-    <%
-        if(curPage==1){
-    %>
-    <%
-    }else{
-    %>
-    <a href = "index.php?curPage=<%=curPage-1%>" >上一页</a>
-    <%
-        }
-        if(curPage == pageCount){
-
-        }else{
-    %>
-    <a href = "index.php?curPage=<%=curPage+1%>" >下一页</a>
-    <%
-        }
-    %>
-    <a href = "index.php?curPage=<%=pageCount%>" >尾页</a>
-    第<%=curPage%>页/共<%=pageCount%>页
+    <?php echo count($result); ?> 条记录
 </div>
 </body>
 </html>
@@ -158,7 +102,7 @@
 		if(confirm("确定要删除吗？该分类下所有文章都会删除"))
 		{
 
-            xmlhttp.open("GET","/DoDelete?table=sort&sid="+id,true);
+            xmlhttp.open("GET","../../../action/delete.php?table=sort&sid="+id,true);
             xmlhttp.onreadystatechange=function(){
                 if (xmlhttp.readyState==4)
                 //xmlhttp.status==404 代表 没有发现该文件

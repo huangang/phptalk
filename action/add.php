@@ -38,5 +38,15 @@ if(isset($_POST)) {
                 echo "<script>alert('增加失败');window.location.href='../admin/administrators/User/index.php';</script>";
             }
         }
+    }elseif($_POST['table'] == 'sort'){
+        $sname = $_POST['sortname'];
+        $sql = "insert into sorts(sname) VALUES ('".$sname."')";
+        $result = $mysql->runSql($sql);
+        if($result){
+            echo "<script>alert('增加成功');window.location.href='../admin/administrators/Sort/index.php';</script>";
+        }else{
+            echo "<script>alert('增加失败');window.location.href='../admin/administrators/Sort/index.php';</script>";
+        }
+
     }
 }

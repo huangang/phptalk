@@ -45,5 +45,16 @@ if(isset($_POST)){
         }else{
             echo "<script>alert('密码修改失败');window.location.href='../admin/administrators/User/index.php';</script>";
         }
+    }elseif($_POST['table']=='sort'){
+        $sid = $_POST['sid'];
+        $sname = $_POST['sname'];
+        $sql = "update sorts set sname='".$sname."' where sid='".$sid."'";
+        $result = $mysql->runSql($sql);
+        if($result){
+            echo "<script>alert('修改成功');window.location.href='../admin/administrators/Sort/index.php';</script>";
+        }else{
+            echo "<script>alert('修改失败');window.location.href='../admin/administrators/Sort/index.php';</script>";
+        }
+
     }
 }

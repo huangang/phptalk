@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +31,7 @@
 
     </style>
 </head>
-<form action="/DoAdd" method="post">
+<form action="../../../action/add.php" method="post">
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">分类名</td>
