@@ -6,6 +6,7 @@
  * Time: 下午10:25
  */
 session_start();
+$role = $_SESSION['role'];
 require_once('../class/saemysql.class.php');
 $mysql = new SaeMysql();
 if(isset($_POST)) {
@@ -17,9 +18,17 @@ if(isset($_POST)) {
         $sql = "insert into posts(title,uid,sid,content) values('".$title."','".$uid."','".$sid."','".$content."')";
         $result = $mysql->runSql($sql);
         if($result){
-            echo "<script>alert('增加成功');window.location.href='../admin/administrators/Post/index.php';</script>";
+            if($role == "manager") {
+                echo "<script>alert('增加成功');window.location.href='../admin/administrators/Post/index.php';</script>";
+            }elseif($role == "ordinary") {
+                echo "<script>alert('增加成功');window.location.href='../admin/ordinary/Post/index.php';</script>";
+            }
         }else{
-            echo "<script>alert('增加失败');window.location.href='../admin/administrators/Post/index.php';</script>";
+            if($role == "manager") {
+                echo "<script>alert('增加失败');window.location.href='../admin/administrators/Post/index.php';</script>";
+            }elseif($role == "ordinary") {
+                echo "<script>alert('增加失败');window.location.href='../admin/ordinary/Post/index.php';</script>";
+            }
         }
     }elseif($_POST['table'] == 'user'){
         $email = $_POST['email'];

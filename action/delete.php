@@ -5,6 +5,8 @@
  * Date: 15/5/24
  * Time: 下午10:25
  */
+session_start();
+$role = $_SESSION['role'];
 require_once('../class/saemysql.class.php');
 $mysql = new SaeMysql();
 if(isset($_GET)) {
@@ -13,9 +15,17 @@ if(isset($_GET)) {
         $sql = "delete from posts WHERE pid =".$pid;
         $result = $mysql->runSql($sql);
         if($result){
-            echo "<script>alert('删除成功');window.location.href='../admin/administrators/Post/index.php';</script>";
+            if($role == "manager") {
+                echo "<script>alert('删除成功');window.location.href='../admin/administrators/Post/index.php';</script>";
+            }elseif($role == "ordinary") {
+                echo "<script>alert('删除成功');window.location.href='../admin/ordinary/Post/index.php';</script>";
+            }
         }else{
-            echo "<script>alert('删除失败');window.location.href='../admin/administrators/Post/index.php';</script>";
+            if($role == "manager") {
+                echo "<script>alert('删除失败');window.location.href='../admin/administrators/Post/index.php';</script>";
+            }elseif($role == "ordinary") {
+                echo "<script>alert('删除失败');window.location.href='../admin/ordinary/Post/index.php';</script>";
+            }
         }
     }elseif($_GET['table'] == 'user'){
         $uid = $_GET['uid'];
@@ -54,9 +64,17 @@ if(isset($_GET)) {
         $sql = "delete from comments where cid =".$cid;
         $result = $mysql->runSql($sql);
         if($result){
-            echo "<script>alert('删除成功');window.location.href='../admin/administrators/Comment/index.php';</script>";
+            if($role == "manager") {
+                echo "<script>alert('删除成功');window.location.href='../admin/administrators/Comment/index.php';</script>";
+            }elseif($role == "ordinary") {
+                echo "<script>alert('删除成功');window.location.href='../admin/ordinary/Comment/index.php';</script>";
+            }
         }else{
-            echo "<script>alert('删除失败');window.location.href='../admin/administrators/Comment/index.php';</script>";
+            if($role == "manager") {
+                echo "<script>alert('删除失败');window.location.href='../admin/administrators/Comment/index.php';</script>";
+            }elseif($role == "ordinary") {
+                echo "<script>alert('删除失败');window.location.href='../admin/ordinary/Comment/index.php';</script>";
+            }
         }
     }
 }
