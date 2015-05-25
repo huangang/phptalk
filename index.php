@@ -1,4 +1,8 @@
-<?php include("header.php");?>
+<?php
+include("header.php");
+require_once('class/saemysql.class.php');
+$mysql = new SaeMysql();
+?>
 <!-- Start of Search Wrapper -->
 <div class="search-area-wrapper">
     <div class="search-area container">
@@ -27,74 +31,52 @@
                     <section class="span4 articles-list">
                         <h3>Featured Articles</h3>
                         <ul class="articles">
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">Integrating WordPress with Your Website</a></h4>
-                                <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Server &amp; Database">Server &amp; Database</a></span>
-                                <span class="like-count">66</span>
-                            </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">WordPress Site Maintenance</a></h4>
-                                <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                <span class="like-count">15</span>
-                            </li>
-                            <li class="article-entry video">
-                                <h4><a href="single.html">Meta Tags in WordPress</a></h4>
-                                <span class="article-meta">23 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                <span class="like-count">8</span>
-                            </li>
-                            <li class="article-entry image">
-                                <h4><a href="single.html">WordPress in Your Language</a></h4>
-                                <span class="article-meta">22 Feb, 2013 in <a href="#" title="View all posts in Advanced Techniques">Advanced Techniques</a></span>
-                                <span class="like-count">6</span>
-                            </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">Know Your Sources</a></h4>
-                                <span class="article-meta">22 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                <span class="like-count">2</span>
-                            </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">Validating a Website</a></h4>
-                                <span class="article-meta">21 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                <span class="like-count">3</span>
-                            </li>
+                            <?php
+//                            $sql = "select post_hot.pid from post_hot,posts where post_hot.pid = posts.pid";
+//                            $result = $mysql->getData($sql);
+                            //算法太复杂,待我想想
+                            //var_dump($result);
+                            $sql = "select *from posts  order by pid desc limit 0,6";
+                            $result = $mysql->getData($sql);
+                            for($i = 0 ;$i<count($result,0);$i++){
+                                $pid = $result[$i]['pid'];
+                                $title = $result[$i]['title'];
+                                $post_time = $result[$i]['post_time'];
+                                $sid = $result[$i]['sid'];
+                                $sql = "select sname from sorts where sid=".$sid;
+                                $sname = $mysql->getVar($sql);
+                                $sql = "select count(*) from post_hot where pid=".$pid;
+                                $post_hot = $mysql->getVar($sql);
+                                echo "<li class=\"article-entry standard\">";
+                                echo '<h4><a href="single.php?pid='.$pid.'">'.$title.'</a></h4>';
+                                echo '<span class="article-meta">'.$post_time.'in  <a href="#" title="View all posts in '.$sname.';"> '.$sname.'</a></span>';
+                                echo '<span class="like-count">'.$post_hot.'</span></li>';
+                            }
+                            ?>
                         </ul>
                     </section>
 
 
                     <section class="span4 articles-list">
                         <h3>Latest Articles</h3>
-                        <ul class="articles">
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">Integrating WordPress with Your Website</a></h4>
-                                <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Server &amp; Database">Server &amp; Database</a></span>
-                                <span class="like-count">66</span>
-                            </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">Using Javascript</a></h4>
-                                <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Advanced Techniques">Advanced Techniques</a></span>
-                                <span class="like-count">18</span>
-                            </li>
-                            <li class="article-entry image">
-                                <h4><a href="single.html">Using Images</a></h4>
-                                <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Designing in WordPress">Designing in WordPress</a></span>
-                                <span class="like-count">7</span>
-                            </li>
-                            <li class="article-entry video">
-                                <h4><a href="single.html">Using Video</a></h4>
-                                <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in WordPress Plugins">WordPress Plugins</a></span>
-                                <span class="like-count">7</span>
-                            </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">WordPress Site Maintenance</a></h4>
-                                <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                <span class="like-count">15</span>
-                            </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">WordPress CSS Information and Techniques</a></h4>
-                                <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Theme Development">Theme Development</a></span>
-                                <span class="like-count">1</span>
-                            </li>
-                        </ul>
+                        <?php
+                        $sql = "select *from posts  order by pid desc limit 0,6";
+                        $result = $mysql->getData($sql);
+                        for($i = 0 ;$i<count($result,0);$i++){
+                            $pid = $result[$i]['pid'];
+                            $title = $result[$i]['title'];
+                            $post_time = $result[$i]['post_time'];
+                            $sid = $result[$i]['sid'];
+                            $sql = "select sname from sorts where sid=".$sid;
+                            $sname = $mysql->getVar($sql);
+                            $sql = "select count(*) from post_hot where pid=".$pid;
+                            $post_hot = $mysql->getVar($sql);
+                            echo "<ul class=\"articles\"><li class=\"article-entry standard\">";
+                            echo '<h4><a href="single.php?pid='.$pid.'">'.$title.'</a></h4>';
+                            echo '<span class="article-meta">'.$post_time.'in  <a href="#" title="View all posts in '.$sname.';"> '.$sname.'</a></span>';
+                            echo '<span class="like-count">'.$post_hot.'</span></li></ul>';
+                        }
+                        ?>
                     </section>
                 </div>
             </div>
