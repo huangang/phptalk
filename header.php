@@ -51,7 +51,7 @@ session_start();
                 <a href="index.php"  title="Knowledge Base Theme">
                     <img src="images/logo.png" alt="Knowledge Base Theme">
                 </a>
-                <span class="tag-line">Premium WordPress Theme</span>
+                <span class="tag-line">Premium PHP TALK</span>
             </div>
 
 
