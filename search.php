@@ -10,7 +10,7 @@ $mysql = new SaeMysql();
 $search = $_GET['s'];
 ?>
 <?php include("header.php"); ?>
-
+    <title>搜索</title>
 <?php
 include("search_from.php");
 ?>

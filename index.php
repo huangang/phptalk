@@ -7,7 +7,7 @@ $mysql = new SaeMysql();
 <?php
 include("search_from.php");
 ?>
-
+<title>Knowledge</title>
 <!-- Start of Page Container -->
 <div class="page-container">
     <div class="container">
@@ -48,8 +48,6 @@ include("search_from.php");
                             <?php
                             $sql = "SELECT post_hot.pid AS pid ,count(post_hot.pid)  as flow ,posts.title as title , posts.post_time as post_time ,posts.sid as sid from post_hot, posts where posts.pid = post_hot.pid GROUP BY post_hot.pid  ORDER BY flow DESC limit 0,6";
                             $result = $mysql->getData($sql);
-                            //算法太复杂,待我想想
-                            $result = $mysql->getData($sql);
                             for($i = 0 ;$i<count($result,0);$i++){
                                 $pid = $result[$i]['pid'];
 
@@ -75,7 +73,6 @@ include("search_from.php");
             <?php
             include("sidebar.php");
             ?>
-
         </div>
     </div>
 </div>

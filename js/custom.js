@@ -354,6 +354,21 @@ jQuery(document).ready(function(e) {
 				
 });
 
+function reply(id){
+    $("#reply_id").val(id);
+    var reply_name = $("#cid"+id).text();
+    $("#reply_name").val("回复 "+reply_name);
+    $("#reply_name").css("display","block");
+    $("#clear_btn").css("display","block");
+    console.log(id);
+}
+function clear_reply(){
+    $("#reply_id").val("0");
+    $("#reply_name").val("");
+    $("#reply_name").css("display","none");
+    $("#clear_btn").css("display","none");
+}
+
 
 
 

@@ -58,16 +58,18 @@ if(isset($_POST)) {
         }
 
     }elseif($_POST['table'] == 'comment'){
+        $reply_cid =  $_POST['reply_id'];
         $uid = $_SESSION['uid'];
         $pid = $_POST['pid'];
         $content = $_POST['comment'];
-        $sql = "insert into comments(uid,pid,content) values('".$uid."','".$pid."','".$content."')";
+        $sql = "insert into comments(uid,pid,content,reply_cid) values('" . $uid . "','" . $pid . "','" . $content . "','".$reply_cid."')";
         $result = $mysql->runSql($sql);
         if($result){
             echo "<script>alert('评论成功');window.location.href='../single.php?pid=".$pid."';</script>";
         }else{
             echo "<script>alert('评论失败');window.location.href='../single.php?pid=".$pid."';</script>";
         }
+
 
     }elseif($_POST['table'] == 'post_hot'){
         $uid = $_SESSION['uid'];

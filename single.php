@@ -30,6 +30,7 @@ include("search_from.php");
                     $sql = "select title from posts WHERE  pid =".$pid;
                     $title = $mysql->getVar($sql);
                     ?>
+                    <title><?php echo $title; ?></title>
                     <li class="active"><?php echo $title; ?></li>
                 </ul>
 
@@ -126,6 +127,8 @@ include("search_from.php");
                         $result = $mysql->getData($sql);
                         for($i = 0 ;$i<$comment_num; $i++){
                             $uid  = $result[$i]['uid'];
+                            $cid  = $result[$i]['cid'];
+                            $reply_cid  = $result[$i]['reply_cid'];
                             $sql = "select avatar from users where uid=".$uid;
                             $avatar = $mysql->getVar($sql);
                             $sql  = "select username from users where uid=".$uid;
@@ -137,12 +140,22 @@ include("search_from.php");
                                   </a>
                                   <div class="comment-meta">
                                   <h5 class="author">';
-                            echo '<cite class="fn"><a href="#" rel="external nofollow" class="url">'.$username.'</a></cite>
-                                        - <a class="comment-reply-link" href="#">Reply</a>
+                            if($reply_cid != "0"){
+                                $sql = "select *from comments where cid=".$reply_cid;
+                                $comment_result = $mysql->getLine($sql);
+                                $sql = "select username from users where uid=".$comment_result['uid'];
+                                $reply_username = $mysql->getVar($sql);
+                                echo '<cite class="fn">Talk to '.$comment_result['comment_time'].' '.$reply_username.'<br><a href="#" rel="external nofollow" class="url" id="cid' . $cid . '" >' . $username . '</a></cite>
+                                        - <a class="comment-reply-link" href="javascript:void(0);" onclick="reply(' . $cid . ') ">Reply</a>
                                   </h5>';
+                            }else {
+                                echo '<cite class="fn"><a href="#" rel="external nofollow" class="url" id="cid' . $cid . '" >' . $username . '</a></cite>
+                                        - <a class="comment-reply-link" href="javascript:void(0);" onclick="reply(' . $cid . ') ">Reply</a>
+                                  </h5>';
+                            }
                             echo '<p class="date">
                                         <a href="#">
-                                            <time datetime="'.$result[$i]['comment_time'].'">'.$result[$i]['comment_time'].'</time>
+                                            <time datetime="'.$result[$i]['comment_time'].'">'.$result[$i]['comment_time'].' </time>
                                         </a>
                                   </p>';
                             echo '<div class="comment-body">'.$result[$i]['content'].'</div></article>';
@@ -161,6 +174,11 @@ include("search_from.php");
 
 
                         <form action="action/add.php" method="post" id="commentform">
+
+                            <input type="hidden" value="0" name="reply_id" id="reply_id"/>
+                            <input type="text" value="" name="reply_name" style="display: none;" id="reply_name" readOnly="true" />
+                            <input type="button" id="clear_btn" value="Clear" onclick="clear_reply()" style="display: none;" class="form-button btn" />
+
                             <input type="hidden" name="table" value="comment">
                             <input type="hidden" name="pid" value="<?php echo $pid; ?>">
                             <p class="comment-notes">Your must login. Required fields are marked <span class="required">*</span></p>

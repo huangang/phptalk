@@ -46,6 +46,7 @@ include("search_from.php");
                     <span class="date">';
                     echo $post_time.'</span>
                     <span class="category"><a href="#" title="'.$sname.'">'.$sname.'</a></span>
+                    <title>'.$sname.'</title>
                     <span class="comments"><a href="#" title="Comment on '.$title.'">'.$comment_num.' Comments</a></span>
                     <span class="like-count">'.$post_hot.'</span>
                     </div>';
