@@ -66,12 +66,53 @@ include("search_from.php");
 
                 <div class="like-btn">
 
-                    <form id="like-it-form" action="#" method="post">
+                    <form id="like-it-form" method="post" onclick="addLike()">
 
                         <span class="like-it "><?php echo $like_count; ?></span>
-                        <input type="hidden" name="post_id" value="<?php echo $pid; ?>">
-                        <input type="hidden" name="action" value="like_it">
+                        <input type="hidden" name="post_id" value="<?php echo $pid; ?>" id="post_id">
+                        <input type="hidden" name="action" value="like_it" >
                     </form>
+                    <script>
+                        function addLike() {
+                            var id = eval(document.getElementById('post_id')).value;
+                            var xmlhttp;
+                            var status = "";
+                            try {
+                                xmlhttp = new ActiveXObject('Msxml2.XMLHTTP');
+                            } catch (e) {
+                                try {
+                                    xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+                                } catch (e) {
+                                    try {
+                                        xmlhttp = new XMLHttpRequest();
+                                    } catch (e) {
+                                    }
+                                }
+                            }
+                            if(true)
+                            {
+                                xmlhttp.open("POST", "action/add.php?table=post_hot&pid=" + id, true);
+                                xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                                var postStr = 'table=post_hot&pid=' + id;
+                                xmlhttp.onreadystatechange=function(){
+                                    if (xmlhttp.readyState==4)
+                                    //xmlhttp.status==404 代表 没有发现该文件
+                                        if (xmlhttp.status==200)
+                                        {
+                                            status=xmlhttp.responseText;
+                                            console.log(status);
+                                        } else
+                                        {
+                                            alert("发生错误："+xmlhttp.status);
+                                        }
+
+                                }
+                                xmlhttp.send(postStr);
+
+                            }
+                            //console.log(id);
+                        }
+                    </script>
 
                 </div>
 

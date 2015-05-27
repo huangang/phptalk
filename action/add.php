@@ -69,5 +69,21 @@ if(isset($_POST)) {
             echo "<script>alert('评论失败');window.location.href='../single.php?pid=".$pid."';</script>";
         }
 
+    }elseif($_POST['table'] == 'post_hot'){
+        $uid = $_SESSION['uid'];
+        $pid = $_POST['pid'];
+        $sql = "select uid *from post_hot where pid=".$pid;
+        $user_id = $mysql->getVar($sql);
+        if($uid == $user_id){
+            echo "<script>alert('您已经赞过');window.location.href='../single.php?pid=".$pid."';</script>";
+        }else{
+            $sql = "insert into post_hot(pid,uid) values ('".$pid."','".$uid."')";
+            $result = $mysql->runSql($sql);
+            if($result){
+                echo "<script>alert('点赞成功');window.location.href='../single.php?pid=".$pid."';</script>";
+            }else{
+                echo "<script>alert('点赞失败');window.location.href='../single.php?pid=".$pid."';</script>";
+            }
+        }
     }
 }

@@ -241,10 +241,8 @@ jQuery(document).ready(function(e) {
         var likeNum = parseInt(likeHtml, 10);
         likeNum++;
         likeButton.html(likeNum);
-
-         //   $('#like-it-form').ajaxSubmit(options);
+         //$('#like-it-form').ajaxSubmit(options);
     });
-
 
 
 
