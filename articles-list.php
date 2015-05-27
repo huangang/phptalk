@@ -2,28 +2,38 @@
 /**
  * Created by PhpStorm.
  * User: huangang
- * Date: 15/5/25
- * Time: 下午10:48
+ * Date: 15/5/27
+ * Time: 上午9:43
  */
 require_once('class/saemysql.class.php');
 $mysql = new SaeMysql();
-$sort_id = $_GET['sid'];
 ?>
 <?php include("header.php"); ?>
 
-<?php
-include("search_from.php");
-?>
+<!-- Start of Search Wrapper -->
+<div class="search-area-wrapper">
+    <div class="search-area container">
+        <h3 class="search-header">Have a Question?</h3>
+        <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
+
+        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
+            <input class="search-term required" type="text" id="s" name="s" placeholder="Type your search terms here" title="* Please enter a search term!" />
+            <input class="search-btn" type="submit" value="Search" />
+            <div id="search-error-container"></div>
+        </form>
+    </div>
+</div>
+<!-- End of Search Wrapper -->
 
 <!-- Start of Page Container -->
-<script src="js/Cutter.js"></script>
+    <script src="js/Cutter.js"></script>
 <div class="page-container">
     <div class="container">
         <div class="row">
             <div class="span8 main-listing">
-                <!-- start of page content -->
+            <!-- start of page content -->
                 <?php
-                $sql = "select *from posts where sid= ".$sort_id." order by pid desc";
+                $sql = "select *from posts  order by pid desc";
                 $result = $mysql->getData($sql);
                 for($i = 0 ;$i<count($result,0);$i++){
                     $pid = $result[$i]['pid'];
@@ -45,7 +55,7 @@ include("search_from.php");
                     <div class="post-meta clearfix">
                     <span class="date">';
                     echo $post_time.'</span>
-                    <span class="category"><a href="#" title="'.$sname.'">'.$sname.'</a></span>
+                    <span class="category"><a href="categories.php?sid='.$sid.'" title="'.$sname.'">'.$sname.'</a></span>
                     <span class="comments"><a href="#" title="Comment on '.$title.'">'.$comment_num.' Comments</a></span>
                     <span class="like-count">'.$post_hot.'</span>
                     </div>';
@@ -58,13 +68,13 @@ include("search_from.php");
                 ?>
 
 
-                <!--                <div id="pagination">-->
-                <!--                    <a href="#" class="btn active">1</a>-->
-                <!--                    <a href="#" class="btn">2</a>-->
-                <!--                    <a href="#" class="btn">3</a>-->
-                <!--                    <a href="#" class="btn">Next »</a>-->
-                <!--                    <a href="#" class="btn">Last »</a>-->
-                <!--                </div>-->
+<!--                <div id="pagination">-->
+<!--                    <a href="#" class="btn active">1</a>-->
+<!--                    <a href="#" class="btn">2</a>-->
+<!--                    <a href="#" class="btn">3</a>-->
+<!--                    <a href="#" class="btn">Next »</a>-->
+<!--                    <a href="#" class="btn">Last »</a>-->
+<!--                </div>-->
 
             </div>
             <!-- end of page content -->

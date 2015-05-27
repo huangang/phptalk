@@ -62,8 +62,17 @@ session_start();
                         <li class="current-menu-item"><a href="index.php">Home</a></li>
                         <?php
                         if(isset($_SESSION['uid']) && $_SESSION['uid'] != null){
+                            $role = $_SESSION['role'];
                             ?>
                             <li><a href="admin">Admin</a></li>
+                            <?php
+                            if($role == 'ordinary'){
+                                echo '<li><a href="admin/ordinary/#1/11">Post</a></li>';
+                            }elseif($role == 'manager'){
+                                echo '<li><a href="admin/administrators/#1/11">Post</a></li>';
+                            }
+                            ?>
+
                             <li><a href="exit.php">EXit</a></li>
                         <?php
                         }else {

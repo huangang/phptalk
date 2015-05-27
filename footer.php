@@ -11,60 +11,6 @@
     <div id="footer" class="container">
         <div class="row">
 
-            <div class="span3">
-                <section class="widget">
-                    <h3 class="title">How it works</h3>
-                    <div class="textwidget">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
-                    </div>
-                </section>
-            </div>
-
-            <div class="span3">
-                <section class="widget"><h3 class="title">Categories</h3>
-                    <ul>
-                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Advanced Techniques</a> </li>
-                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Designing in WordPress</a></li>
-                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Server &amp; Database</a></li>
-                        <li><a href="#" title="Lorem ipsum dolor sit amet, ">Theme Development</a></li>
-                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Website Dev</a></li>
-                        <li><a href="#" title="Lorem ipsum dolor sit amet,">WordPress for Beginners</a></li>
-                        <li><a href="#" title="Lorem ipsum dolor sit amet, ">WordPress Plugins</a></li>
-                    </ul>
-                </section>
-            </div>
-
-            <div class="span3">
-                <section class="widget">
-                    <h3 class="title">Latest Tweets</h3>
-                    <div id="twitter_update_list">
-                        <ul>
-                            <li>No Tweets loaded !</li>
-                        </ul>
-                    </div>
-                    <!--                    <script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js" type="text/javascript"></script>-->
-                    <!--                    <script type="text/javascript" >-->
-                    <!--                        getTwitters("twitter_update_list", {-->
-                    <!--                            id: "960development",-->
-                    <!--                            count: 3,-->
-                    <!--                            enableLinks: true,-->
-                    <!--                            ignoreReplies: true,-->
-                    <!--                            clearContents: true,-->
-                    <!--                            template: "%text% <span>%time%</span>"-->
-                    <!--                        });-->
-                    <!--                    </script>-->
-                </section>
-            </div>
-
-            <div class="span3">
-                <section class="widget">
-                    <h3 class="title">Flickr Photos</h3>
-                    <div class="flickr-photos" id="basicuse">
-                    </div>
-                </section>
-            </div>
-
         </div>
     </div>
     <!-- end of #footer -->
@@ -75,7 +21,7 @@
             <div class="row">
                 <div class="span6">
                     <p class="copyright">
-                        Copyright &copy; 2014.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+                        Copyright &copy; 2015.Company PHPTALK All rights reserved.<a target="_blank" href="index.php">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
                     </p>
                 </div>
                 <div class="span6">

@@ -3,20 +3,10 @@ include("header.php");
 require_once('class/saemysql.class.php');
 $mysql = new SaeMysql();
 ?>
-<!-- Start of Search Wrapper -->
-<div class="search-area-wrapper">
-    <div class="search-area container">
-        <h3 class="search-header">Have a Question?</h3>
-        <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
 
-        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
-            <input class="search-term required" type="text" id="s" name="s" placeholder="Type your search terms here" title="* Please enter a search term!" />
-            <input class="search-btn" type="submit" value="Search" />
-            <div id="search-error-container"></div>
-        </form>
-    </div>
-</div>
-<!-- End of Search Wrapper -->
+<?php
+include("search_from.php");
+?>
 
 <!-- Start of Page Container -->
 <div class="page-container">
@@ -49,7 +39,7 @@ $mysql = new SaeMysql();
                                 $post_hot = $mysql->getVar($sql);
                                 echo "<li class=\"article-entry standard\">";
                                 echo '<h4><a href="single.php?pid='.$pid.'">'.$title.'</a></h4>';
-                                echo '<span class="article-meta">'.$post_time.'in  <a href="#" title="View all posts in '.$sname.';"> '.$sname.'</a></span>';
+                                echo '<span class="article-meta">'.$post_time.'in  <a href="categories.php?sid='.$sid.'" title="View all posts in '.$sname.';"> '.$sname.'</a></span>';
                                 echo '<span class="like-count">'.$post_hot.'</span></li>';
                             }
                             ?>
@@ -73,7 +63,7 @@ $mysql = new SaeMysql();
                             $post_hot = $mysql->getVar($sql);
                             echo "<ul class=\"articles\"><li class=\"article-entry standard\">";
                             echo '<h4><a href="single.php?pid='.$pid.'">'.$title.'</a></h4>';
-                            echo '<span class="article-meta">'.$post_time.'in  <a href="#" title="View all posts in '.$sname.';"> '.$sname.'</a></span>';
+                            echo '<span class="article-meta">'.$post_time.'in  <a href="categories.php?sid='.$sid.'" title="View all posts in '.$sname.';"> '.$sname.'</a></span>';
                             echo '<span class="like-count">'.$post_hot.'</span></li></ul>';
                         }
                         ?>

@@ -5,6 +5,8 @@
  * Date: 15/5/24
  * Time: 下午2:07
  */
+require_once('class/saemysql.class.php');
+$mysql = new SaeMysql();
 ?>
 <!-- start of sidebar -->
 <aside class="span4 page-sidebar">
@@ -20,36 +22,25 @@
         <div class="quick-links-widget">
             <h3 class="title">Quick Links</h3>
             <ul id="menu-quick-links" class="menu clearfix">
-                <li><a href="index-2.html">Home</a></li>
-                <li><a href="articles-list.html">Articles List</a></li>
-                <li><a href="faq.html">FAQs</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="articles-list.php">Articles List</a></li>
             </ul>
         </div>
     </section>
 
     <section class="widget">
-        <h3 class="title">Tags</h3>
+        <h3 class="title">Categories</h3>
         <div class="tagcloud">
-            <a href="#" class="btn btn-mini">basic</a>
-            <a href="#" class="btn btn-mini">beginner</a>
-            <a href="#" class="btn btn-mini">blogging</a>
-            <a href="#" class="btn btn-mini">colour</a>
-            <a href="#" class="btn btn-mini">css</a>
-            <a href="#" class="btn btn-mini">date</a>
-            <a href="#" class="btn btn-mini">design</a>
-            <a href="#" class="btn btn-mini">files</a>
-            <a href="#" class="btn btn-mini">format</a>
-            <a href="#" class="btn btn-mini">header</a>
-            <a href="#" class="btn btn-mini">images</a>
-            <a href="#" class="btn btn-mini">plugins</a>
-            <a href="#" class="btn btn-mini">setting</a>
-            <a href="#" class="btn btn-mini">templates</a>
-            <a href="#" class="btn btn-mini">theme</a>
-            <a href="#" class="btn btn-mini">time</a>
-            <a href="#" class="btn btn-mini">videos</a>
-            <a href="#" class="btn btn-mini">website</a>
-            <a href="#" class="btn btn-mini">wordpress</a>
+            <?php
+            $sql = "select *from sorts";
+            $result = $mysql->getData($sql);
+            $sort_num = count($result);
+            for($i = 0 ;$i<$sort_num; $i++){
+                $sid = $result[$i]['sid'];
+                $sname = $result[$i]['sname'];
+                echo '<a href="categories.php?sid='.$sid.'" class="btn btn-mini">'.$sname.'</a>';
+            }
+            ?>
         </div>
     </section>
 
