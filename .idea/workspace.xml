@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cbd81e1f-cd89-467e-8165-7ebd17b053ff" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/footer.php" afterPath="$PROJECT_DIR$/footer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/phptalk.sql" afterPath="$PROJECT_DIR$/phptalk.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="phptalk.iws" />
@@ -37,7 +37,7 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1350">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="135" max-vertical-offset="1350">
               <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
               <folding>
                 <marker date="1432723654000" expanded="true" signature="632:679" placeholder="select *from..posts..." />
@@ -70,21 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="phptalk.sql" pinned="false" current-in-tab="false">
+      <file leaf-file-name="phptalk.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/phptalk.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.2" vertical-offset="1585" max-vertical-offset="2235">
-              <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="footer.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/footer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.71428573" vertical-offset="105" max-vertical-offset="930">
-              <caret line="32" column="84" selection-start-line="32" selection-start-column="84" selection-end-line="32" selection-end-column="84" />
+            <state vertical-scroll-proportion="0.6778043" vertical-offset="1786" max-vertical-offset="2235">
+              <caret line="138" column="119" selection-start-line="138" selection-start-column="119" selection-end-line="138" selection-end-column="119" />
               <folding />
             </state>
           </provider>
@@ -154,8 +144,8 @@
         <option value="$PROJECT_DIR$/js/custom.js" />
         <option value="$PROJECT_DIR$/action/add.php" />
         <option value="$PROJECT_DIR$/single.php" />
-        <option value="$PROJECT_DIR$/phptalk.sql" />
         <option value="$PROJECT_DIR$/footer.php" />
+        <option value="$PROJECT_DIR$/phptalk.sql" />
       </list>
     </option>
   </component>
@@ -727,18 +717,18 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/phptalk.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.2" vertical-offset="1585" max-vertical-offset="2235">
-          <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/footer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.71428573" vertical-offset="105" max-vertical-offset="930">
           <caret line="32" column="84" selection-start-line="32" selection-start-column="84" selection-end-line="32" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phptalk.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6778043" vertical-offset="1786" max-vertical-offset="2235">
+          <caret line="138" column="119" selection-start-line="138" selection-start-column="119" selection-end-line="138" selection-end-column="119" />
           <folding />
         </state>
       </provider>

@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`uid`, `username`, `password`, `email`, `role`, `state`, `register_time`, `avatar`) VALUES
-  (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '123456@qq.com', 'manager', 'normal', '2015-05-27 23:51:37', 'upload/avatar/avatar.png');
+  (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '123456@qq.com', 'manager', 'normal', '2015-05-27 23:51:37', 'images/avatar.png');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
