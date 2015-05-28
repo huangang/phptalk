@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="span6">
                     <p class="copyright">
-                        Copyright &copy; 2015.Company PHPTALK All rights reserved.<a target="_blank" href="index.php">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+                        Copyright &copy; 2015.Company PHPTALK All rights reserved.<a target="_blank" href="index.php">PHPTALK</a>
                     </p>
                 </div>
                 <div class="span6">
