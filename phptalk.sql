@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role` varchar(11) NOT NULL COMMENT '身份',
   `state` varchar(11) NOT NULL DEFAULT 'normal' COMMENT '用户状态',
   `register_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
-  `avatar` varchar(255) NOT NULL DEFAULT 'upload/avatar/avatar.png' COMMENT '头像路径',
+  `avatar` varchar(255) NOT NULL DEFAULT 'images/avatar.png' COMMENT '头像路径',
   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=2 ;
 
